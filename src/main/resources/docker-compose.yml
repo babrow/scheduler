@@ -1,0 +1,30 @@
+version: '3.3'
+services:
+#  okko:
+#    image: microapp/okko
+#    container_name: okko
+#    ports:
+#      - 8911:8911
+#    command: |
+#      bash -c "java -jar -Dspring.profiles.active=${profile:-dev} -Duser.timezone=UTC superapp-okko-0.0.1.jar"
+#  # cache
+#  redis:
+#    image: redis
+#    restart: always
+#    container_name: redis_okko
+#    command: redis-server --appendonly yes
+#    volumes:
+#      - '/var/data/okko/redis:/data'
+  postgres:
+    image: postgres:10
+    restart: always
+    container_name: postgres-schedule
+    ports:
+      - 7432:5432
+    environment:
+      POSTGRES_DB: schedule
+      POSTGRES_USER: schedule
+      POSTGRES_PASSWORD: schedule
+    command: postgres -N 1000
+    volumes:
+      - '$HOME/docker/volumes/postgres:/var/lib/postgresql/data'
